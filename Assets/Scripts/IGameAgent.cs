@@ -7,5 +7,12 @@ public interface IGameAgent
     Vector3Int Position { get; }
 
     void MoveTo(Vector3Int newPos);
+    void Attack(Vector3Int direction);
+    
+    // start death animation
+    void Die();
+    
+    // finish removing the thing after it dies, called from animation event
+    void FinishDying();
 
 }
