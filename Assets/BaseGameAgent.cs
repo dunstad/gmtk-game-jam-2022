@@ -52,6 +52,4 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         // spawn particles?
     }
 
-
-
 }
