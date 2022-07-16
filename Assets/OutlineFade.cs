@@ -21,13 +21,11 @@ public class OutlineFade : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("mouse entered");
         anim.Play("outlineFadeIn");
     }
     
     private void OnMouseExit()
     {
-        Debug.Log("mouse exited");
         anim.Play("outlineFadeOut");
     }
 
