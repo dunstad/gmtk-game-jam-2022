@@ -9,7 +9,7 @@ public class InsurgentPawn : BaseGameAgent
     void Start()
     {
         Debug.Log("start");
-        MoveTo(new Vector3Int(5, 5, 5));
+        MoveTo(new Vector3Int(5, 6, 0));
     }
 
     // Update is called once per frame
