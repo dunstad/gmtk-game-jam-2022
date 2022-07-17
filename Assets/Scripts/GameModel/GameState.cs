@@ -26,7 +26,6 @@ public class GameState : MonoBehaviour
     }
     public void Initialize() 
     {
-        Debug.Log("game state initialize called");
 
         SetupLevel(1);
 
@@ -40,8 +39,6 @@ public class GameState : MonoBehaviour
         foreach (IGameAgent agent in insurgentPawns)
         {
             BaseGameAgent baseGameAgent = (BaseGameAgent) agent;
-            Debug.Log("baseGameAgent.gameObject.GetComponent<PawnModel>()");
-            Debug.Log(baseGameAgent.gameObject.GetComponent<PawnModel>());
             playerCharacters.Add(baseGameAgent.gameObject.GetComponent<PawnModel>());
         }
 
@@ -69,14 +66,10 @@ public class GameState : MonoBehaviour
 
     public void StartTurn()
     {
-        Debug.Log("start turn called");
         List<DieFace> playerRolls = new List<DieFace>();
-        Debug.Log(playerCharacters[0]);
         foreach(PawnModel pawn in playerCharacters)
         {
             DieFace dieFace = pawn.Roll();
-            Debug.Log("dieFace");
-            Debug.Log(dieFace);
             playerRolls.Add(dieFace);
         }
         onDiceRolled(playerRolls);

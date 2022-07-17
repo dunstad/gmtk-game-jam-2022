@@ -20,9 +20,7 @@ public class GridController : MonoBehaviour
     private Vector3Int previousMousePos = new Vector3Int();
     public BoardState BoardState {get; set;}
 
-    public InsurgentPawn SelectedPawn { get;set; }
-
-
+    public InsurgentPawn SelectedPawn { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +30,6 @@ public class GridController : MonoBehaviour
     public void Initialize()
     {
         BoardState = boardMap.GetComponent<BoardState>();
-        Debug.Log(BoardState);
     }
     // Update is called once per frame
     void Update()
@@ -49,6 +46,12 @@ public class GridController : MonoBehaviour
         // Left mouse click -> Modal based on context of what is being selected
         if (Input.GetMouseButton(0)) 
         {
+            IGameAgent agent = BoardState.Knock_Knock(mousePos);
+            if(agent is InsurgentPawn)
+            {
+                SelectedPawn = agent as InsurgentPawn;
+                Debug.Log($"SelectedPawn = {SelectedPawn}");
+            }
             //todo: left click logic for selecting which character to move
         }
         // Right mouse click -> ????

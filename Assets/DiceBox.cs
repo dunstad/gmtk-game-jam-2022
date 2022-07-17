@@ -35,9 +35,6 @@ public class DiceBox : MonoBehaviour
     public void RollDice(List<DieFace> dieFaces)
     {
 
-        // Debug.Log(dieFaces);
-        // Debug.Log(dieFaces[0]);
-
         foreach (DieFace dieFace in dieFaces)
         {
             Vector3 dieRandomSpawn = Random.insideUnitCircle * 2;
@@ -46,8 +43,6 @@ public class DiceBox : MonoBehaviour
 
             Sprite dieSprite;
             Color dieColor;
-            Debug.Log(dieFace.GetType());
-            Debug.Log(typeof(MoveFace));
             if (dieFace.GetType() == typeof(MoveFace))
             {
                 // final face the die lands on after rolling animation

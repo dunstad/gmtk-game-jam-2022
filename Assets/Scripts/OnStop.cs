@@ -46,7 +46,6 @@ public class OnStop : MonoBehaviour
             if (rb.velocity == Vector2.zero)
             {
                 stopped = true; 
-                Debug.Log("stopped");
                 rb.sharedMaterial = bouncy;
                 bounceCount = 0;
                 anim.enabled = false;
