@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -83,14 +84,41 @@ public class GameState : MonoBehaviour
         List<IGameAgent> agentsOfMonarchy = bs.AgentsOfMonarchy;
         foreach(BaseGameAgent agent in agentsOfMonarchy)
         {
-            Vector3Int newPos = agent.Position + new Vector3Int(0, -1, 0);
+            // try three times to get a random position on the board
+            Vector3Int newPos = new Vector3Int(0, 0, 0);
+            for (int tries = 3; tries > 0; tries--)
+            {
+                Vector3Int randomOffset = new Vector3Int(UnityEngine.Random.Range(-1, 2), UnityEngine.Random.Range(-1, 2), 0);
+                newPos = agent.Position + randomOffset;
+                if (Grid.IsPosInGridBounds(newPos))
+                {
+                    tries = 0;
+                }
+            }
+
             Debug.Log(bs.Knock_Knock(newPos));
-            if (bs.Knock_Knock(newPos) == null)
+            if (bs.Knock_Knock(newPos) == null && Grid.IsPosInGridBounds(newPos))
             {
                 agent.MoveTo(newPos);
-            } else
+            } else if (!agentsOfMonarchy.Contains(bs.Knock_Knock(newPos)) && Grid.IsPosInGridBounds(newPos))
             {
                 agent.Attack(newPos);
+                BaseGameAgent attackTarget = (BaseGameAgent) bs.Knock_Knock(newPos);
+                attackTarget.Die();
+
+                bool livingPawn = false;
+                List<IGameAgent> insurgentPawns = Grid.boardMap.GetComponent<BoardState>().InsurgentPawns;
+                foreach(IGameAgent pawn in insurgentPawns)
+                {
+                    BaseGameAgent bga = (BaseGameAgent) pawn;
+                    if (bga.alive)
+                    {
+                        livingPawn = true;
+                    }
+                }
+                if (!livingPawn) {
+                    SceneManager.LoadScene(0);
+                }
             }
         }
 
