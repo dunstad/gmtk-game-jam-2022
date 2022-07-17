@@ -18,6 +18,9 @@ public class GridController : MonoBehaviour
     //[SerializeField] private RuleTile pathTile = null;
 
     private Vector3Int previousMousePos = new Vector3Int();
+    public BoardState BoardState {get; set;}
+
+    public InsurgentPawn SelectedPawn { get;set; }
 
 
 
@@ -26,7 +29,11 @@ public class GridController : MonoBehaviour
     {
         grid = gameObject.GetComponent<Grid>();
     }
-
+    public void Initialize()
+    {
+        BoardState = boardMap.GetComponent<BoardState>();
+        Debug.Log(BoardState);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -56,5 +63,14 @@ public class GridController : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
+    }
+
+    public void SpawnEntity(AgentType agentType, Vector3Int gridPos)
+    {
+        if(agentType == AgentType.None)
+        {
+            return;
+        }
+        BoardState.Spawn(agentType, gridPos);
     }
 }

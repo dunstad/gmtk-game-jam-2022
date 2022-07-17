@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class BoardState : MonoBehaviour
 {
+    [SerializeField] private GridController ParentGridController;
+    [SerializeField] private GameState ParentGameState;
+
+    private IGameAgent[,] TileOccupant = new IGameAgent[8,8];
+
     public List<IGameAgent> AgentsOfMonarchy { get; private set; } = new List<IGameAgent>();
     public List<IGameAgent> InsurgentPawns { get; private set; } = new List<IGameAgent>();
     public GameObject PlayerPawn;
     public GameObject Rook;
+    public GameObject Knight;
     private int frameCount = 0;
     public int Width { get; private set; }
     public int Height { get; private set; }
-    private IGameAgent[,] TileOccupant = new IGameAgent[8,8];
 
     // Start is called before the first frame update
     void Start()
     {
-        SetupBoard();
+        ParentGridController.Initialize();
+        ParentGameState.Initialize();
     }
 
     // Update is called once per frame
@@ -24,14 +30,44 @@ public class BoardState : MonoBehaviour
     {
     }
 
-    void SetupBoard()
+    // void SetupBoard(List<PawnModel> pawns, List<BaseEnemyState> enemies)
+    // {
+    //     foreach(PawnModel pawn in pawns)
+    //     {
+
+    //     }
+    //     PawnSpawn(new Vector3Int(0, 0, 0));
+    //     PawnSpawn(new Vector3Int(2, 0, 0));
+    //     SpawnEnemy(Rook, new Vector3Int(3, 5, 0));
+    //     SpawnEnemy(Rook, new Vector3Int(5, 5, 0));
+    // }
+    public void Spawn(AgentType agentType, Vector3Int pos)
     {
-        PawnSpawn(new Vector3Int(0, 0, 0));
-        PawnSpawn(new Vector3Int(2, 0, 0));
-        SpawnEnemy(Rook, new Vector3Int(3, 5, 0));
-        SpawnEnemy(Rook, new Vector3Int(5, 5, 0));
+        GameObject preppedAgent;
+
+        switch(agentType)
+        {
+            case AgentType.None:
+                return;
+            case AgentType.InsurgentPawn:
+                preppedAgent = PlayerPawn;
+                break;
+            case AgentType.Knight:
+                preppedAgent = Knight;
+                break;
+            case AgentType.Rook:
+                preppedAgent = Rook;
+                break;
+            default:
+                return;
+        }
+        GameObject newAgent = Instantiate(preppedAgent, pos, Quaternion.identity);
+        IGameAgent gameAgent = newAgent.GetComponent<IGameAgent>();
+        TileOccupant[pos.x, pos.y] = gameAgent;
+        gameAgent.onMove += MoveAgent;
+        AgentsOfMonarchy.Add(gameAgent);
     }
-    void PawnSpawn(Vector3Int pos)
+    void SpawnPawn(Vector3Int pos)
     {
         GameObject newPawn = Instantiate(PlayerPawn, pos, Quaternion.identity);
         IGameAgent gameAgent = (IGameAgent)newPawn.GetComponent<InsurgentPawn>();
