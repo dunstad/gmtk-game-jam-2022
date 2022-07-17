@@ -231,6 +231,7 @@ public class GridController : MonoBehaviour
         }
         SelectedAction = BarricadeAction;
         List<Vector3Int> possibleMoves = new List<Vector3Int>();
+        List<Vector3Int> blockedMoves = new List<Vector3Int>();
         Vector3Int centerPos = SelectedPawn.Position;
 
         int startXIdx = centerPos.x - 1 < 0 ? 0 : centerPos.x - 1;
@@ -242,6 +243,7 @@ public class GridController : MonoBehaviour
             for(int j = startYIdx; j <= endYIdx; ++j)
             {
                 Vector3Int evalPos = new Vector3Int(i, j, 0);
+                IGameAgent agent = BoardState.Knock_Knock(evalPos);
                 if(!IsPosInGridBounds(evalPos) || agent == null)
                 {
                     blockedMoves.Add(evalPos);
