@@ -241,6 +241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 8563539456749617192, guid: 7b3b9f38dca0e2041a41afe7a04263f4, type: 3}
+  attackSound: {fileID: 2080685630225125137}
+  moveSound: {fileID: 594696903222810507}
 --- !u!114 &2738691136374754239
 MonoBehaviour:
   m_ObjectHideFlags: 0
