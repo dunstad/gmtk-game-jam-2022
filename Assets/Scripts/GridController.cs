@@ -131,6 +131,7 @@ public class GridController : MonoBehaviour
     private void MoveAction(Vector3Int actionTarget)
     {
         SelectedPawn.MoveTo(actionTarget);
+        BoardState.ParentGameState.moveCount--;
     }
     private void BarricadeAction(Vector3Int actionTarget)
     {
@@ -138,6 +139,7 @@ public class GridController : MonoBehaviour
     }
     private void AttackAction(Vector3Int actionTarget)
     {
+        BoardState.ParentGameState.attackCount--;
         BaseGameAgent gameAgent = BoardState.Knock_Knock(actionTarget) as BaseGameAgent;
         gameAgent.Die();
     }
@@ -229,6 +231,13 @@ public class GridController : MonoBehaviour
     }
     public void PreviewMove()
     {
+        int moveCount = BoardState.ParentGameState.moveCount;
+
+        if(moveCount < 1)
+        {
+            Debug.Log("no moves left");
+            return;
+        }
         if(SelectedPawn == null)
         {
             return;

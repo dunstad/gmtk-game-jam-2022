@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoardState : MonoBehaviour
 {
     [SerializeField] private GridController ParentGridController;
-    [SerializeField] private GameState ParentGameState;
+    [SerializeField] public GameState ParentGameState;
 
     private IGameAgent[,] TileOccupant = new IGameAgent[8,8];
 

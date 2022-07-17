@@ -16,6 +16,9 @@ public class GameState : MonoBehaviour
 
     [SerializeField] DiceBox diceBox;
 
+    public int moveCount;
+    public int attackCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +79,20 @@ public class GameState : MonoBehaviour
                 playerRolls.Add(dieFace);
             }
         }
+
+        moveCount = 0;
+        foreach (DieFace dieFace in playerRolls)
+        {
+            if (dieFace.GetType() == typeof(MoveFace))
+            {
+                moveCount++;
+            }
+            if (dieFace.GetType() == typeof(AttackFace))
+            {
+                attackCount++;
+            }
+        }
+
         onDiceRolled(playerRolls);
     }
     public Faction WhosSideAreYouOn(IGameAgent gameAgent)
@@ -116,7 +133,6 @@ public class GameState : MonoBehaviour
                 }
             }
 
-            Debug.Log(bs.Knock_Knock(newPos));
             if (bs.Knock_Knock(newPos) == null && Grid.IsPosInGridBounds(newPos))
             {
                 agent.MoveTo(newPos);
