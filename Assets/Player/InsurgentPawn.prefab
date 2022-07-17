@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1533139247997451040}
   - component: {fileID: 4720853228113851221}
   - component: {fileID: 9142445242375136111}
+  - component: {fileID: 2738691136374754239}
   m_Layer: 0
   m_Name: InsurgentPawn
   m_TagString: Untagged
@@ -96,6 +97,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12ae645edf84f12478dddf34e3c33f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2738691136374754239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533139247997451042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f8df82b2c81cb4591553e15721b9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2159846639812183532

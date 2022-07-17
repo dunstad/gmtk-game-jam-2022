@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InsurgentPawn : BaseGameAgent
+public class AttackFace : DieFace
 {
-
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("start");
-        MoveTo(new Vector3Int(5, 5, 5));
+        
     }
 
     // Update is called once per frame
@@ -17,5 +15,4 @@ public class InsurgentPawn : BaseGameAgent
     {
         
     }
-
 }

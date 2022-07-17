@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public interface IGameAgent
@@ -14,5 +15,7 @@ public interface IGameAgent
     
     // finish removing the thing after it dies, called from animation event
     void FinishDying();
+    
+    event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
 
 }

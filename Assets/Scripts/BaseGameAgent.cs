@@ -8,6 +8,8 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
 
     private Animator anim;
 
+    public event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
+
     public Vector3Int Position 
     { 
         get 
@@ -32,6 +34,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         // gameObject.transform.position = newPos;
         StartCoroutine(MoveOverTime(newPos));
+        onMove(this, Position, newPos);
     }
 
     private float InSine(float t) => (float)-Math.Cos(t * Math.PI / 2);
