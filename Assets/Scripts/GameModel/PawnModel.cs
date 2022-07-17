@@ -11,13 +11,13 @@ public class PawnModel : MonoBehaviour
     void Start()
     {
         Die = gameObject.AddComponent<CharacterDie>();
-        Die.faceCount = 3;
+        Die.faceCount = 2;
         MoveFace mFace = Die.gameObject.AddComponent<MoveFace>();
         Die.dieFaces = new List<DieFace>()
         {
             Die.gameObject.AddComponent<MoveFace>(),
             Die.gameObject.AddComponent<AttackFace>(),
-            Die.gameObject.AddComponent<BarricadeFace>(),
+            // Die.gameObject.AddComponent<BarricadeFace>(),
         };
         // Debug.Log(Die.dieFaces[0]);
         BoardState = gameObject.GetComponent<InsurgentPawn>();

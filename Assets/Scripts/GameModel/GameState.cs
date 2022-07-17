@@ -77,6 +77,8 @@ public class GameState : MonoBehaviour
             {
                 DieFace dieFace = pawn.Roll();
                 playerRolls.Add(dieFace);
+                dieFace = pawn.Roll();
+                playerRolls.Add(dieFace);
             }
         }
 
@@ -121,39 +123,43 @@ public class GameState : MonoBehaviour
         List<IGameAgent> agentsOfMonarchy = bs.AgentsOfMonarchy;
         foreach(BaseGameAgent agent in agentsOfMonarchy)
         {
-            // try three times to get a random position on the board
-            Vector3Int newPos = new Vector3Int(0, 0, 0);
-            for (int tries = 3; tries > 0; tries--)
+            // no zombies
+            if (agent.alive)
             {
-                Vector3Int randomOffset = new Vector3Int(UnityEngine.Random.Range(-1, 2), UnityEngine.Random.Range(-1, 2), 0);
-                newPos = agent.Position + randomOffset;
-                if (Grid.IsPosInGridBounds(newPos))
+                // try three times to get a random position on the board
+                Vector3Int newPos = new Vector3Int(0, 0, 0);
+                for (int tries = 3; tries > 0; tries--)
                 {
-                    tries = 0;
-                }
-            }
-
-            if (bs.Knock_Knock(newPos) == null && Grid.IsPosInGridBounds(newPos))
-            {
-                agent.MoveTo(newPos);
-            } else if (!agentsOfMonarchy.Contains(bs.Knock_Knock(newPos)) && Grid.IsPosInGridBounds(newPos))
-            {
-                agent.Attack(newPos);
-                BaseGameAgent attackTarget = (BaseGameAgent) bs.Knock_Knock(newPos);
-                attackTarget.Die();
-
-                bool livingPawn = false;
-                List<IGameAgent> insurgentPawns = Grid.boardMap.GetComponent<BoardState>().InsurgentPawns;
-                foreach(IGameAgent pawn in insurgentPawns)
-                {
-                    BaseGameAgent bga = (BaseGameAgent) pawn;
-                    if (bga.alive)
+                    Vector3Int randomOffset = new Vector3Int(UnityEngine.Random.Range(-1, 2), UnityEngine.Random.Range(-1, 2), 0);
+                    newPos = agent.Position + randomOffset;
+                    if (Grid.IsPosInGridBounds(newPos))
                     {
-                        livingPawn = true;
+                        tries = 0;
                     }
                 }
-                if (!livingPawn) {
-                    SceneManager.LoadScene(0);
+
+                if (bs.Knock_Knock(newPos) == null && Grid.IsPosInGridBounds(newPos))
+                {
+                    agent.MoveTo(newPos);
+                } else if (!agentsOfMonarchy.Contains(bs.Knock_Knock(newPos)) && Grid.IsPosInGridBounds(newPos))
+                {
+                    agent.Attack(newPos);
+                    BaseGameAgent attackTarget = (BaseGameAgent) bs.Knock_Knock(newPos);
+                    attackTarget.Die();
+
+                    bool livingPawn = false;
+                    List<IGameAgent> insurgentPawns = Grid.boardMap.GetComponent<BoardState>().InsurgentPawns;
+                    foreach(IGameAgent pawn in insurgentPawns)
+                    {
+                        BaseGameAgent bga = (BaseGameAgent) pawn;
+                        if (bga.alive)
+                        {
+                            livingPawn = true;
+                        }
+                    }
+                    if (!livingPawn) {
+                        SceneManager.LoadScene(0);
+                    }
                 }
             }
         }

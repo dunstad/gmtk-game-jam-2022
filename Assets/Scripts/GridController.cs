@@ -3,6 +3,7 @@ using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridController : MonoBehaviour
 {
@@ -60,7 +61,8 @@ public class GridController : MonoBehaviour
             previousMouseClickPos = mousePos;
             IGameAgent agent = BoardState.Knock_Knock(mousePos);
             InsurgentPawn clickedPawn = agent as InsurgentPawn;
-            if(clickedPawn != null && clickedPawn != SelectedPawn)
+            // no zombies
+            if(clickedPawn != null && clickedPawn != SelectedPawn && clickedPawn.alive)
             {
                 overlayMap.RemoveCurrentOutlines();
                 SelectedPawn = agent as InsurgentPawn;
@@ -142,6 +144,20 @@ public class GridController : MonoBehaviour
         BoardState.ParentGameState.attackCount--;
         BaseGameAgent gameAgent = BoardState.Knock_Knock(actionTarget) as BaseGameAgent;
         gameAgent.Die();
+
+        // load next if all enemies dead
+        bool livingBootlickerExists = false;
+        foreach(IGameAgent bootlicker in BoardState.AgentsOfMonarchy)
+        {
+            BaseGameAgent bga = (BaseGameAgent) bootlicker;
+            if (bga.alive)
+            {
+                livingBootlickerExists = true;
+            }
+        }
+        if (!livingBootlickerExists) {
+            SceneManager.LoadScene(2);
+        }
     }
 
     Vector3Int GetMousePosition () 
@@ -192,6 +208,13 @@ public class GridController : MonoBehaviour
     }
     public void PreviewAttack()
     {
+        int attackCount = BoardState.ParentGameState.attackCount;
+
+        if(attackCount < 1)
+        {
+            Debug.Log("no attacks left");
+            return;
+        }
         if(SelectedPawn == null)
         {
             return;
