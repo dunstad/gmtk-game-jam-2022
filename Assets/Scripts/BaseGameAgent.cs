@@ -8,6 +8,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
 
     private Animator anim;
     private Animator weaponAnim;
+    public bool alive = true;
 
     public event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
 
@@ -28,6 +29,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         anim = gameObject.GetComponent<Animator>();
         weaponAnim = GetComponentsInChildren<Animator>()[0];
+        Debug.Log(weaponAnim);
     }
 
     // Update is called once per frame
@@ -100,6 +102,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         anim.Play("die");
         Invoke("FinishDying", 0.3f);
+        alive = false;
     }
 
     // finish removing the thing after it dies, called from animation event
