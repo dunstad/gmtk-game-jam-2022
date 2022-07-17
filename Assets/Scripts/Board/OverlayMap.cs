@@ -24,10 +24,7 @@ public class OverlayMap : MonoBehaviour
                 TileOverlays[i,j] = Instantiate(OverlayTile, new Vector3Int(i, j, 0), Quaternion.identity).GetComponent<PossibleTileOutline>();
                 TileOverlays[i,j].Disable();
                 GameObject gameObj = Instantiate(BadOverlayTile, new Vector3Int(i, j, 0), Quaternion.identity);
-                Debug.Log($"GameObj = {gameObj}");
-                Debug.Log($"BadTileOverlays = {BadTileOverlays}");
                 BadTileOverlays[i,j] = gameObj.GetComponent<BadTileOutline>();
-                Debug.Log($"BadTileOverlays[{i}.{j}] = {BadTileOverlays[i,j]}");
                 BadTileOverlays[i,j].Disable();
             }
         }

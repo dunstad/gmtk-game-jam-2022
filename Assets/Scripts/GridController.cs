@@ -129,6 +129,15 @@ public class GridController : MonoBehaviour
     {
         SelectedPawn.MoveTo(actionTarget);
     }
+    private void BarricadeAction(Vector3Int actionTarget)
+    {
+        // place a barricade
+    }
+    private void AttackAction(Vector3Int actionTarget)
+    {
+        // attack
+    }
+
     Vector3Int GetMousePosition () 
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -142,6 +151,80 @@ public class GridController : MonoBehaviour
             return;
         }
         BoardState.Spawn(agentType, gridPos);
+    }
+    public void PreviewBarricade()
+    {
+        if(SelectedPawn == null)
+        {
+            return;
+        }
+        if(SelectedAction == BarricadeAction)
+        {
+            Debug.Log("You are already previewing a Move action for this Pawn");
+            return;
+        }
+        SelectedAction = BarricadeAction;
+        List<Vector3Int> possibleMoves = new List<Vector3Int>();
+        Vector3Int centerPos = SelectedPawn.Position;
+
+        int startXIdx = centerPos.x - 1 < 0 ? 0 : centerPos.x - 1;
+        int startYIdx = centerPos.y - 1 < 0 ? 0 : centerPos.y - 1;
+        int endXIdx = centerPos.x + 1 > 7 ? 7 : centerPos.x + 1;
+        int endYIdx = centerPos.y + 1 > 7 ? 7 : centerPos.y + 1;
+        for(int i = startXIdx; i <= endXIdx; ++i)
+        {
+            for(int j = startYIdx; j <= endYIdx; ++j)
+            {
+                Vector3Int evalPos = new Vector3Int(i, j, 0);
+                if(BoardState.Knock_Knock(evalPos) == null)
+                {
+                    possibleMoves.Add(evalPos);
+                }
+            }
+        }
+        overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
+    }
+    public void PreviewAttack()
+    {
+        if(SelectedPawn == null)
+        {
+            return;
+        }
+        if(SelectedAction == AttackAction)
+        {
+            Debug.Log("You are already previewing a Move action for this Pawn");
+            return;
+        }
+        SelectedAction = AttackAction;
+        List<Vector3Int> possibleMoves = new List<Vector3Int>();
+        List<Vector3Int> blockedMoves = new List<Vector3Int>();
+        Vector3Int centerPos = SelectedPawn.Position;
+
+        List<Vector3Int> candidatePositions = new List<Vector3Int>()
+        {
+            new Vector3Int(centerPos.x - 1, centerPos.y - 1, 0),
+            new Vector3Int(centerPos.x - 1, centerPos.y + 1, 0),
+            new Vector3Int(centerPos.x + 1, centerPos.y - 1, 0),
+            new Vector3Int(centerPos.x + 1, centerPos.y + 1, 0),
+        };
+
+        foreach(Vector3Int candidate in candidatePositions)
+        {
+            if(!IsPosInGridBounds(candidate))
+            {
+                blockedMoves.Add(candidate);
+            }
+            if(BoardState.Knock_Knock(candidate) == null)
+            {
+                possibleMoves.Add(candidate);
+            }
+            else
+            {
+                blockedMoves.Add(candidate);
+            }
+        }
+        overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
+        overlayMap.EnableTiles(OverlayTileType.Bad, blockedMoves);
     }
     public void PreviewMove()
     {
@@ -174,5 +257,14 @@ public class GridController : MonoBehaviour
             }
         }
         overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
+    }
+    public bool IsPosInGridBounds(Vector3Int checkPos)
+    {
+        if(checkPos.x > 7 || checkPos.x < 0
+            || checkPos.y > 7 || checkPos.y < 0)
+        {
+            return false;   
+        }
+        return true;
     }
 }
