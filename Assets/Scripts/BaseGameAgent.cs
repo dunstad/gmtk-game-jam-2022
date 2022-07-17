@@ -7,8 +7,11 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
 {
 
     private Animator anim;
+    private Animator weaponAnim;
 
     public event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
+
+    [SerializeField] GameObject projectile;
 
     public Vector3Int Position 
     { 
@@ -19,9 +22,10 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         }
     }
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        weaponAnim = gameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,7 +46,6 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     private float InOutSine(float t) => (float)(Math.Cos(t * Math.PI) - 1) / -2;
 
     // used internally to animate the movement
-    // our game model shouldn't rely on the transform position
     private IEnumerator MoveOverTime(Vector3Int targetPosition)
     {
         Debug.Log("moveovertime called");
@@ -64,21 +67,42 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         // moving = false;
     }
 
+    private IEnumerator LaunchProjectile(Vector3Int targetPosition)
+    {
+        GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+        Debug.Log("LaunchProjectile called");
+        float sqrRemainingDistance = (newProjectile.transform.position - targetPosition).sqrMagnitude;
+        float timeSinceTick = 0f;
+        float tickSeconds = 15f;
+
+        while (sqrRemainingDistance > 0.01) {
+            timeSinceTick += Time.deltaTime;
+            var progress = timeSinceTick / tickSeconds;
+            Vector3 newPosition = Vector3.Lerp(newProjectile.transform.position, targetPosition, progress);
+            newProjectile.transform.position = newPosition;
+            sqrRemainingDistance = (newProjectile.transform.position - targetPosition).sqrMagnitude;
+            yield return null;
+        }
+        Destroy(newProjectile);
+    }
     public void Attack(Vector3Int newPos)
     {
-        anim.Play("attack");
+        StartCoroutine(LaunchProjectile(newPos));
+        weaponAnim.Play("attack");
     }
 
     // start death animation
     public void Die()
     {
         anim.Play("die");
+        Invoke("FinishDying", 0.3f);
     }
 
     // finish removing the thing after it dies, called from animation event
     public void FinishDying()
     {
-        Destroy(gameObject);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(.5f, 0f ,0f);
+        // Destroy(gameObject);
         // spawn particles?
     }
 

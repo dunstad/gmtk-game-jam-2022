@@ -8,8 +8,10 @@ public class InsurgentPawn : BaseGameAgent
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         Model = gameObject.GetComponent<PawnModel>();
         //MoveTo(new Vector3Int(5, 6, 0));
+        Attack(new Vector3Int(5, 5, 5));
     }
 
     // Update is called once per frame
