@@ -11,7 +11,6 @@ public class InsurgentPawn : BaseGameAgent
         base.Start();
         Model = gameObject.GetComponent<PawnModel>();
         //MoveTo(new Vector3Int(5, 6, 0));
-        Attack(new Vector3Int(5, 5, 5));
     }
 
     // Update is called once per frame
