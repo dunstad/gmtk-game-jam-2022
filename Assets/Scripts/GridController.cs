@@ -61,14 +61,11 @@ public class GridController : MonoBehaviour
             if(clickedPawn != null && clickedPawn != SelectedPawn)
             {
                 overlayMap.RemoveCurrentOutlines();
-                Debug.Log($"Entered Pawn Selection Logic at ({mousePos.x}, {mousePos.y})");
                 SelectedPawn = agent as InsurgentPawn;
-                overlayMap.EnableTiles(new List<Vector3Int>() { mousePos });
+                overlayMap.EnableTiles(OverlayTileType.Good, new List<Vector3Int>() { mousePos });
             }
-            else if(SelectedAction != null && SelectedPawn != null && overlayMap.GetTileState(mousePos))
+            else if(SelectedAction != null && SelectedPawn != null && overlayMap.GetTileState(OverlayTileType.Good, mousePos))
             {
-                Debug.Log($"Entered Action Confirmation at ({mousePos.x}, {mousePos.y})");
-                Debug.Log($"SelectedAction = {SelectedAction}, SelectedPawn = {SelectedPawn}, OverlayMap at ({mousePos.x}, {mousePos.y}) = {overlayMap.GetTileState(mousePos)}");
                 ConfirmAction(mousePos);
             }
             else if(mousePos.x < 8 && mousePos.x >= 0
@@ -176,6 +173,6 @@ public class GridController : MonoBehaviour
                 }
             }
         }
-        overlayMap.EnableTiles(possibleMoves);
+        overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
     }
 }
