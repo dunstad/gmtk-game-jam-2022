@@ -61,7 +61,8 @@ public class GridController : MonoBehaviour
             previousMouseClickPos = mousePos;
             IGameAgent agent = BoardState.Knock_Knock(mousePos);
             InsurgentPawn clickedPawn = agent as InsurgentPawn;
-            if(clickedPawn != null && clickedPawn != SelectedPawn)
+            // no zombies
+            if(clickedPawn != null && clickedPawn != SelectedPawn && clickedPawn.alive)
             {
                 overlayMap.RemoveCurrentOutlines();
                 SelectedPawn = agent as InsurgentPawn;
