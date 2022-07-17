@@ -17,7 +17,7 @@ public class PawnModel : MonoBehaviour
         {
             Die.gameObject.AddComponent<MoveFace>(),
             Die.gameObject.AddComponent<AttackFace>(),
-            Die.gameObject.AddComponent<BarricadeFace>(),
+            // Die.gameObject.AddComponent<BarricadeFace>(),
         };
         // Debug.Log(Die.dieFaces[0]);
         BoardState = gameObject.GetComponent<InsurgentPawn>();

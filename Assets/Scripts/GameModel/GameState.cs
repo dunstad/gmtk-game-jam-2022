@@ -77,6 +77,8 @@ public class GameState : MonoBehaviour
             {
                 DieFace dieFace = pawn.Roll();
                 playerRolls.Add(dieFace);
+                DieFace dieFace = pawn.Roll();
+                playerRolls.Add(dieFace);
             }
         }
 
