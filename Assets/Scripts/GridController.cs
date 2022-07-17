@@ -29,13 +29,15 @@ public class GridController : MonoBehaviour
     public InsurgentPawn SelectedPawn { get; set; }
     public Action<Vector3Int> SelectedAction { get; set; }
     public bool playerConsideringAction {get; private set;} = false;
-    private bool actionConfirmed = false;
-    private Vector3Int previousMouseClickPos = new Vector3Int(-99, -99, -99);
+    private Vector3Int notABoardValue = new Vector3Int(-99, -99, -99);
+    private int actionConfirmedStunTimer = 90;
+    private Vector3Int previousMouseClickPos;
 
     // Start is called before the first frame update
     void Start()
     {
         grid = gameObject.GetComponent<Grid>();
+        previousMouseClickPos = notABoardValue;
     }
     public void Initialize()
     {
@@ -46,6 +48,11 @@ public class GridController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(actionConfirmedStunTimer > 0)
+        {
+            actionConfirmedStunTimer--;
+            return;
+        }
         // Mouse over -> highlight tile
         Vector3Int mousePos = GetMousePosition();
         // if (!mousePos.Equals(previousMousePos)) {
@@ -128,6 +135,7 @@ public class GridController : MonoBehaviour
         overlayMap.RemoveCurrentOutlines();
         SelectedAction = null;
         SelectedPawn = null;
+        previousMouseClickPos = notABoardValue;
         //also need to confirm a die use
     }
     private void MoveAction(Vector3Int actionTarget)
