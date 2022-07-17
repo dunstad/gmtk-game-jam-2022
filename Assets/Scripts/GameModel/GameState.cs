@@ -78,6 +78,23 @@ public class GameState : MonoBehaviour
         }
         onDiceRolled(playerRolls);
     }
+    public Faction WhosSideAreYouOn(IGameAgent gameAgent)
+    {
+        BoardState bs = Grid.boardMap.GetComponent<BoardState>();
+        List<IGameAgent> agentsOfMonarchy = bs.AgentsOfMonarchy;
+        List<IGameAgent> insurgents = bs.InsurgentPawns;
+        Faction agentFaction;
+        if(insurgents.Count < agentsOfMonarchy.Count)
+        {
+            agentFaction = insurgents.Contains(gameAgent) ? Faction.Insurgent : Faction.AgentOfMonarchy;
+        }
+        else
+        {
+            agentFaction = agentsOfMonarchy.Contains(gameAgent) ? Faction.AgentOfMonarchy : Faction.Insurgent;
+        }
+        
+        return agentFaction;
+    }
     public void EndTurn()
     {
         TurnCount++;
@@ -133,4 +150,9 @@ public class GameState : MonoBehaviour
 
         StartTurn();
     }
+}
+public enum Faction
+{
+    AgentOfMonarchy = 0,
+    Insurgent = 1
 }
