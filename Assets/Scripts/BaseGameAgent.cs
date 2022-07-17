@@ -27,7 +27,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     public void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        weaponAnim = gameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
+        weaponAnim = GetComponentsInChildren<Animator>()[0];
     }
 
     // Update is called once per frame

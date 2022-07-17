@@ -78,5 +78,28 @@ public class GameState : MonoBehaviour
     {
         TurnCount++;
         Debug.Log($"Ending the turn, enemies move and proceed to turn {TurnCount}");
+
+        BoardState bs = Grid.boardMap.GetComponent<BoardState>();
+        List<IGameAgent> agentsOfMonarchy = bs.AgentsOfMonarchy;
+        foreach(BaseGameAgent agent in agentsOfMonarchy)
+        {
+            Vector3Int newPos = agent.Position + new Vector3Int(0, -1, 0);
+            Debug.Log(bs.Knock_Knock(newPos));
+            if (bs.Knock_Knock(newPos) == null)
+            {
+                agent.MoveTo(newPos);
+            } else
+            {
+                agent.Attack(newPos);
+            }
+        }
+
+        GameObject[] dice = GameObject.FindGameObjectsWithTag("Die");
+        foreach(GameObject die in dice)
+        {
+            Destroy(die);
+        }
+
+        StartTurn();
     }
 }
