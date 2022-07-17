@@ -13,12 +13,13 @@ public class PawnModel : MonoBehaviour
         Die = gameObject.AddComponent<CharacterDie>();
         Die.faceCount = 3;
         MoveFace mFace = Die.gameObject.AddComponent<MoveFace>();
-        Die.dieFaces = new List<DieFace>();
-        // {
-        //     Die.gameObject.AddComponent<MoveFace>(),
-        //     Die.gameObject.AddComponent<AttackFace>(),
-        //     Die.gameObject.AddComponent<BarricadeFace>(),
-        // };
+        Die.dieFaces = new List<DieFace>()
+        {
+            Die.gameObject.AddComponent<MoveFace>(),
+            Die.gameObject.AddComponent<AttackFace>(),
+            Die.gameObject.AddComponent<BarricadeFace>(),
+        };
+        // Debug.Log(Die.dieFaces[0]);
         BoardState = gameObject.GetComponent<InsurgentPawn>();
 
     }
@@ -31,6 +32,7 @@ public class PawnModel : MonoBehaviour
 
     public DieFace Roll()
     {
+        // Debug.Log(Die.dieFaces);
         int faceIndex = Random.Range(0, Die.faceCount);
         return Die.dieFaces[faceIndex];
     }

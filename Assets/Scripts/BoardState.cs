@@ -17,6 +17,7 @@ public class BoardState : MonoBehaviour
     private int frameCount = 0;
     public int Width { get; private set; }
     public int Height { get; private set; }
+    bool parentGameStateStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,12 @@ public class BoardState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!parentGameStateStarted)
+        {
+            parentGameStateStarted = true;
+            ParentGameState.StartTurn();
+            // ParentGameState.Initialize();
+        }
     }
 
     // void SetupBoard(List<PawnModel> pawns, List<BaseEnemyState> enemies)
@@ -45,11 +52,14 @@ public class BoardState : MonoBehaviour
     {
         GameObject preppedAgent;
 
+        bool spawningEnemy = true;
         switch(agentType)
         {
             case AgentType.None:
                 return;
             case AgentType.InsurgentPawn:
+                spawningEnemy = false;
+                Debug.Log("spawning pawn");
                 preppedAgent = PlayerPawn;
                 break;
             case AgentType.Knight:
@@ -65,7 +75,13 @@ public class BoardState : MonoBehaviour
         IGameAgent gameAgent = newAgent.GetComponent<IGameAgent>();
         TileOccupant[pos.x, pos.y] = gameAgent;
         gameAgent.onMove += MoveAgent;
-        AgentsOfMonarchy.Add(gameAgent);
+        if (spawningEnemy)
+        {
+            AgentsOfMonarchy.Add(gameAgent);
+        } else
+        {
+            InsurgentPawns.Add(gameAgent);
+        }
     }
     void SpawnPawn(Vector3Int pos)
     {

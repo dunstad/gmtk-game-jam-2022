@@ -7,7 +7,7 @@ public class GridController : MonoBehaviour
 {
     private Grid grid;
 
-    [SerializeField] private Tilemap boardMap = null;
+    [SerializeField] public Tilemap boardMap = null;
 
     [SerializeField] private Tilemap collisionMap = null;
 
