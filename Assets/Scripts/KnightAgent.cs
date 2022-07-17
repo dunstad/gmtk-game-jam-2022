@@ -15,4 +15,9 @@ public class KnightAgent : BaseGameAgent
     {
         
     }
+    public override void Die()
+    {
+        anim.Play("dieKnight");
+        base.Die();
+    }
 }

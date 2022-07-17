@@ -16,5 +16,9 @@ public class Rook : BaseGameAgent
     {
         
     }
-
+    public override void Die()
+    {
+        anim.Play("dieRook");
+        base.Die();
+    }
 }
