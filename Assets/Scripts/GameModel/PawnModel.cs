@@ -11,7 +11,7 @@ public class PawnModel : MonoBehaviour
     void Start()
     {
         Die = gameObject.AddComponent<CharacterDie>();
-        Die.faceCount = 3;
+        Die.faceCount = 2;
         MoveFace mFace = Die.gameObject.AddComponent<MoveFace>();
         Die.dieFaces = new List<DieFace>()
         {
