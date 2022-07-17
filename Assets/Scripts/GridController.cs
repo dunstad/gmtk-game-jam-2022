@@ -21,6 +21,7 @@ public class GridController : MonoBehaviour
     private Vector3Int previousMousePos = new Vector3Int();
     
     public BoardState BoardState {get; set;}
+    public GameState gameState { get; set; }
 
     private OverlayMap overlayMap {get; set;}    
 
@@ -38,6 +39,7 @@ public class GridController : MonoBehaviour
     public void Initialize()
     {
         BoardState = boardMap.GetComponent<BoardState>();
+        gameState = gameObject.GetComponent<GameState>();
         overlayMap = overlayTileMap.GetComponent<OverlayMap>();
     }
     // Update is called once per frame
@@ -119,6 +121,7 @@ public class GridController : MonoBehaviour
         {
             return;
         }
+        Debug.Log($"CONFIRM ACTION -- SelectedAction = {SelectedAction}; SelectedPawn = {SelectedPawn}");
         SelectedAction.Invoke(actionTarget);
         overlayMap.RemoveCurrentOutlines();
         SelectedAction = null;
@@ -136,8 +139,9 @@ public class GridController : MonoBehaviour
     }
     private void AttackAction(Vector3Int actionTarget)
     {
-        // attack
         BoardState.ParentGameState.attackCount--;
+        BaseGameAgent gameAgent = BoardState.Knock_Knock(actionTarget) as BaseGameAgent;
+        gameAgent.Die();
     }
 
     Vector3Int GetMousePosition () 
@@ -212,17 +216,14 @@ public class GridController : MonoBehaviour
 
         foreach(Vector3Int candidate in candidatePositions)
         {
-            if(!IsPosInGridBounds(candidate))
+            IGameAgent agent = BoardState.Knock_Knock(candidate);
+            if(!IsPosInGridBounds(candidate) || agent == null)
             {
                 blockedMoves.Add(candidate);
             }
-            if(BoardState.Knock_Knock(candidate) == null)
+            if(gameState.WhosSideAreYouOn(agent) == Faction.AgentOfMonarchy)
             {
                 possibleMoves.Add(candidate);
-            }
-            else
-            {
-                blockedMoves.Add(candidate);
             }
         }
         overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
