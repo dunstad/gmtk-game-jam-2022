@@ -535,7 +535,21 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: TMP_PRESENT;URP_PRESENT
+    CloudRendering: TMP_PRESENT;URP_PRESENT
+    EmbeddedLinux: TMP_PRESENT;URP_PRESENT
+    GameCoreXboxOne: TMP_PRESENT;URP_PRESENT
+    Lumin: TMP_PRESENT;URP_PRESENT
+    Nintendo Switch: TMP_PRESENT;URP_PRESENT
+    PS4: TMP_PRESENT;URP_PRESENT
+    PS5: TMP_PRESENT;URP_PRESENT
+    Stadia: TMP_PRESENT;URP_PRESENT
+    Standalone: TMP_PRESENT;URP_PRESENT
+    WebGL: TMP_PRESENT;URP_PRESENT
+    Windows Store Apps: TMP_PRESENT;URP_PRESENT
+    XboxOne: TMP_PRESENT;URP_PRESENT
+    tvOS: TMP_PRESENT;URP_PRESENT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
