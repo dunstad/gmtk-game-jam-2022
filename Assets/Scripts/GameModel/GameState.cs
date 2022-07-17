@@ -70,8 +70,11 @@ public class GameState : MonoBehaviour
         List<DieFace> playerRolls = new List<DieFace>();
         foreach(PawnModel pawn in playerCharacters)
         {
-            DieFace dieFace = pawn.Roll();
-            playerRolls.Add(dieFace);
+            if (pawn.BoardState.alive)
+            {
+                DieFace dieFace = pawn.Roll();
+                playerRolls.Add(dieFace);
+            }
         }
         onDiceRolled(playerRolls);
     }
