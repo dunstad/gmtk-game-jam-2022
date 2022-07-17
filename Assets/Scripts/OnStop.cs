@@ -13,11 +13,21 @@ public class OnStop : MonoBehaviour
     [SerializeField] PhysicsMaterial2D noBouncing;
     Rigidbody2D rb;
 
+    // final face the die lands on after rolling animation
+    public Sprite realFace;
+    public Color realColor;
+
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
         Rigidbody2D rb = (Rigidbody2D) gameObject.GetComponent(typeof(Rigidbody2D));
         rb.sharedMaterial = bouncy;
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        anim = transform.GetChild(0).GetComponent<Animator>();
+        anim.Play("roll");
     }
 
     // Update is called once per frame
@@ -39,6 +49,9 @@ public class OnStop : MonoBehaviour
                 Debug.Log("stopped");
                 rb.sharedMaterial = bouncy;
                 bounceCount = 0;
+                anim.enabled = false;
+                spriteRenderer.color = realColor;
+                spriteRenderer.sprite = realFace;
             }
 
         }
