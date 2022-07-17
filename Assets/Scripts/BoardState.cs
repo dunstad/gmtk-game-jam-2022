@@ -82,22 +82,22 @@ public class BoardState : MonoBehaviour
             InsurgentPawns.Add(gameAgent);
         }
     }
-    void SpawnPawn(Vector3Int pos)
-    {
-        GameObject newPawn = Instantiate(PlayerPawn, pos, Quaternion.identity);
-        IGameAgent gameAgent = (IGameAgent)newPawn.GetComponent<InsurgentPawn>();
-        TileOccupant[pos.x, pos.y] = gameAgent;
-        gameAgent.onMove += MoveAgent;
-        InsurgentPawns.Add(gameAgent);
-    }
-    void SpawnEnemy(GameObject enemy, Vector3Int pos)
-    {
-        Instantiate(enemy, pos, Quaternion.identity);
-        IGameAgent gameAgent = enemy.GetComponent<IGameAgent>();
-        TileOccupant[pos.x, pos.y] = gameAgent;
-        gameAgent.onMove += MoveAgent;
-        AgentsOfMonarchy.Add(gameAgent);
-    }
+    // void SpawnPawn(Vector3Int pos)
+    // {
+    //     GameObject newPawn = Instantiate(PlayerPawn, pos, Quaternion.identity);
+    //     IGameAgent gameAgent = (IGameAgent)newPawn.GetComponent<InsurgentPawn>();
+    //     TileOccupant[pos.x, pos.y] = gameAgent;
+    //     gameAgent.onMove += MoveAgent;
+    //     InsurgentPawns.Add(gameAgent);
+    // }
+    // void SpawnEnemy(GameObject enemy, Vector3Int pos)
+    // {
+    //     Instantiate(enemy, pos, Quaternion.identity);
+    //     IGameAgent gameAgent = enemy.GetComponent<IGameAgent>();
+    //     TileOccupant[pos.x, pos.y] = gameAgent;
+    //     gameAgent.onMove += MoveAgent;
+    //     AgentsOfMonarchy.Add(gameAgent);
+    // }
     // Checks who is at a specific 
     public IGameAgent Knock_Knock(Vector3Int checkPos) // who's there?!
     {
