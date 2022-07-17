@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PossibleTileOutline : MonoBehaviour
 {
+    public bool TileState = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,12 @@ public class PossibleTileOutline : MonoBehaviour
     }
     public void Enable() 
     {
-        gameObject.SetActive(true);
+        TileState = true;
+        gameObject.SetActive(TileState);
     }
     public void Disable()
     {
-        gameObject.SetActive(false);
+        TileState = false;
+        gameObject.SetActive(TileState);
     }
 }

@@ -1758,9 +1758,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 84619350}
-        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
-        m_MethodName: EndTurn
+      - m_Target: {fileID: 84619349}
+        m_TargetAssemblyTypeName: GridController, Assembly-CSharp
+        m_MethodName: PreviewMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -42,4 +42,13 @@ public class OverlayMap : MonoBehaviour
             enabledTile.Disable();
         }
     }
+    public bool GetTileState(Vector3Int checkPos)
+    {
+        if(checkPos.x < 0 || checkPos.x > 7
+            || checkPos.y < 0 || checkPos.y > 7)
+        {
+            return false;
+        }
+        return TileOverlays[checkPos.x, checkPos.y].TileState;
+    }
 }
