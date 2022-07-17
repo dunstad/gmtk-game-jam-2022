@@ -78,5 +78,13 @@ public class GameState : MonoBehaviour
     {
         TurnCount++;
         Debug.Log($"Ending the turn, enemies move and proceed to turn {TurnCount}");
+
+        GameObject[] dice = GameObject.FindGameObjectsWithTag("Die");
+        foreach(GameObject die in dice)
+        {
+            Destroy(die);
+        }
+
+        StartTurn();
     }
 }
