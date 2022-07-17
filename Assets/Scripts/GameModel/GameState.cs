@@ -26,7 +26,26 @@ public class GameState : MonoBehaviour
     }
     public void Initialize() 
     {
+        Debug.Log("game state initialize called");
+
         SetupLevel(1);
+
+        List<IGameAgent> agentsOfMonarchy = Grid.boardMap.GetComponent<BoardState>().AgentsOfMonarchy;
+        foreach (IGameAgent agent in agentsOfMonarchy)
+        {
+            
+        }
+
+        List<IGameAgent> insurgentPawns = Grid.boardMap.GetComponent<BoardState>().InsurgentPawns;
+        foreach (IGameAgent agent in insurgentPawns)
+        {
+            BaseGameAgent baseGameAgent = (BaseGameAgent) agent;
+            Debug.Log("baseGameAgent.gameObject.GetComponent<PawnModel>()");
+            Debug.Log(baseGameAgent.gameObject.GetComponent<PawnModel>());
+            playerCharacters.Add(baseGameAgent.gameObject.GetComponent<PawnModel>());
+        }
+
+        // StartTurn();
     }
     // Sets up a level from the level number
     void SetupLevel(int level)
@@ -37,11 +56,6 @@ public class GameState : MonoBehaviour
             for(int j = 0; j < 8; j++)
             {
                 AgentType type = (AgentType)agentLocations[i,j];
-                if(type != AgentType.None)
-                {
-                    Debug.Log($"Found {type} at i = {i}; j = {j}");
-                    Debug.Log($"Putting {type} at x = {j}, y = {8-i}");
-                }
                 Grid.SpawnEntity(type, new Vector3Int(j, 7-i, 0));
             }
         }
@@ -55,10 +69,14 @@ public class GameState : MonoBehaviour
 
     public void StartTurn()
     {
+        Debug.Log("start turn called");
         List<DieFace> playerRolls = new List<DieFace>();
+        Debug.Log(playerCharacters[0]);
         foreach(PawnModel pawn in playerCharacters)
         {
             DieFace dieFace = pawn.Roll();
+            Debug.Log("dieFace");
+            Debug.Log(dieFace);
             playerRolls.Add(dieFace);
         }
         onDiceRolled(playerRolls);

@@ -35,6 +35,9 @@ public class DiceBox : MonoBehaviour
     public void RollDice(List<DieFace> dieFaces)
     {
 
+        // Debug.Log(dieFaces);
+        // Debug.Log(dieFaces[0]);
+
         foreach (DieFace dieFace in dieFaces)
         {
             Vector3 dieRandomSpawn = Random.insideUnitCircle * 2;
