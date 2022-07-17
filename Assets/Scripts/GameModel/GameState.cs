@@ -46,7 +46,8 @@ public class GameState : MonoBehaviour
             playerCharacters.Add(baseGameAgent.gameObject.GetComponent<PawnModel>());
         }
 
-        // StartTurn();
+        // dirty hack, but it fixes startturn state issues
+        Invoke("StartTurn", 0.5f);
     }
     // Sets up a level from the level number
     void SetupLevel(int level)
@@ -73,7 +74,7 @@ public class GameState : MonoBehaviour
         List<DieFace> playerRolls = new List<DieFace>();
         foreach(PawnModel pawn in playerCharacters)
         {
-            if (pawn.BoardState.alive)
+            if (pawn.BoardState && pawn.BoardState.alive)
             {
                 DieFace dieFace = pawn.Roll();
                 playerRolls.Add(dieFace);

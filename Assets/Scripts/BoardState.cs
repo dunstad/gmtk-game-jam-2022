@@ -32,7 +32,7 @@ public class BoardState : MonoBehaviour
         if (!parentGameStateStarted)
         {
             parentGameStateStarted = true;
-            ParentGameState.StartTurn();
+            // ParentGameState.StartTurn();
             // ParentGameState.Initialize();
         }
     }
