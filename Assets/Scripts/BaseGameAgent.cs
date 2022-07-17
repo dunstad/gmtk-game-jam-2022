@@ -12,6 +12,8 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     public event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
 
     [SerializeField] GameObject projectile;
+    [SerializeField] AudioSource attackSound;
+    [SerializeField] AudioSource moveSound;
 
     public Vector3Int Position 
     { 
@@ -37,6 +39,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     public void MoveTo(Vector3Int newPos)
     {
         // gameObject.transform.position = newPos;
+        moveSound.Play();
         StartCoroutine(MoveOverTime(newPos));
         onMove(this, Position, newPos);
     }
@@ -89,6 +92,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         StartCoroutine(LaunchProjectile(newPos));
         weaponAnim.Play("attack");
+        attackSound.Play();
     }
 
     // start death animation

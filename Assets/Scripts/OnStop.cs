@@ -11,6 +11,7 @@ public class OnStop : MonoBehaviour
     int bounceCount = 0;
     [SerializeField] PhysicsMaterial2D bouncy;
     [SerializeField] PhysicsMaterial2D noBouncing;
+    [SerializeField] AudioSource rollSound;
     Rigidbody2D rb;
 
     // final face the die lands on after rolling animation
@@ -58,6 +59,7 @@ public class OnStop : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
+        rollSound.Play();
         hasLanded = true;
         bounceCount++;
     }

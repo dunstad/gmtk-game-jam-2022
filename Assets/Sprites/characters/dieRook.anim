@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: die
+  m_Name: dieRook
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -157,7 +157,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 36a0a5145a232604f9936f58bf21ce38, type: 3}
+      value: {fileID: 21300000, guid: b9b796f0175b62349b390dd77e8bbb0b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -212,7 +212,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 36a0a5145a232604f9936f58bf21ce38, type: 3}
+    - {fileID: 21300000, guid: b9b796f0175b62349b390dd77e8bbb0b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
