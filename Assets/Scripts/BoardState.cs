@@ -59,7 +59,6 @@ public class BoardState : MonoBehaviour
                 return;
             case AgentType.InsurgentPawn:
                 spawningEnemy = false;
-                Debug.Log("spawning pawn");
                 preppedAgent = PlayerPawn;
                 break;
             case AgentType.Knight:
