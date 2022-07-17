@@ -11,14 +11,17 @@ public class GridController : MonoBehaviour
 
     [SerializeField] private Tilemap collisionMap = null;
 
-    [SerializeField] private Tilemap overlayMap = null;
+    [SerializeField] private Tilemap overlayTileMap = null;
 
     [SerializeField] private Tile hoverTile = null;
     
     //[SerializeField] private RuleTile pathTile = null;
 
     private Vector3Int previousMousePos = new Vector3Int();
+    
     public BoardState BoardState {get; set;}
+
+    private OverlayMap overlayMap {get; set;}    
 
     public InsurgentPawn SelectedPawn { get; set; }
 
@@ -30,18 +33,19 @@ public class GridController : MonoBehaviour
     public void Initialize()
     {
         BoardState = boardMap.GetComponent<BoardState>();
+        overlayMap = overlayTileMap.GetComponent<OverlayMap>();
     }
     // Update is called once per frame
     void Update()
     {
         // Mouse over -> highlight tile
         Vector3Int mousePos = GetMousePosition();
-        if (!mousePos.Equals(previousMousePos)) {
+        // if (!mousePos.Equals(previousMousePos)) {
 
-            overlayMap.SetTile(previousMousePos, null); // Remove old hoverTile
-            overlayMap.SetTile(mousePos, hoverTile);
-            previousMousePos = mousePos;
-        }
+        //     overlayMap.SetTile(previousMousePos, null); // Remove old hoverTile
+        //     overlayMap.SetTile(mousePos, hoverTile);
+        //     previousMousePos = mousePos;
+        // }
 
         // Left mouse click -> Modal based on context of what is being selected
         if (Input.GetMouseButton(0)) 
@@ -51,6 +55,7 @@ public class GridController : MonoBehaviour
             {
                 SelectedPawn = agent as InsurgentPawn;
                 Debug.Log($"SelectedPawn = {SelectedPawn}");
+                overlayMap.EnableTiles(new List<Vector3Int>() { mousePos });
             }
             //todo: left click logic for selecting which character to move
         }
