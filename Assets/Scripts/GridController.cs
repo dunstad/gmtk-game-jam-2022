@@ -135,7 +135,8 @@ public class GridController : MonoBehaviour
     }
     private void AttackAction(Vector3Int actionTarget)
     {
-        // attack
+        BaseGameAgent gameAgent = BoardState.Knock_Knock(actionTarget) as BaseGameAgent;
+        gameAgent.Die();
     }
 
     Vector3Int GetMousePosition () 
