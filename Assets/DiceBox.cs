@@ -18,7 +18,7 @@ public class DiceBox : MonoBehaviour
     {
         anim = gameObject.GetComponent<Animator>();
         // Invoke("FakeRollDice", 1);
-        RollDice(new List<DieFace>(){new MoveFace(), new AttackFace(), new BarricadeFace()});
+        // RollDice(new List<DieFace>(){new MoveFace(), new AttackFace(), new BarricadeFace()});
     }
 
     // Update is called once per frame
@@ -27,7 +27,12 @@ public class DiceBox : MonoBehaviour
         
     }
 
-    void RollDice(List<DieFace> dieFaces)
+    public void SubscribeToRollEvent(GameState gs)
+    {
+        gs.onDiceRolled += RollDice;
+    }
+
+    public void RollDice(List<DieFace> dieFaces)
     {
 
         foreach (DieFace dieFace in dieFaces)
@@ -48,7 +53,7 @@ public class DiceBox : MonoBehaviour
             } else if (dieFace.GetType() == typeof(AttackFace))
             {
                 dieSprite = dieFaceAttack;
-                dieColor =  new Color(1f, .1933f, .1933f); // red
+                dieColor =  new Color(1f, 0.5867883f, 0.1921569f); // orange
             } else if (dieFace.GetType() == typeof(BarricadeFace))
             {
                 dieSprite = dieFaceBarricade;
