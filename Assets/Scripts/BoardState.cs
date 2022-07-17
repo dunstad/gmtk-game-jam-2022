@@ -101,6 +101,11 @@ public class BoardState : MonoBehaviour
     // Checks who is at a specific 
     public IGameAgent Knock_Knock(Vector3Int checkPos) // who's there?!
     {
+        if(checkPos.x < 0 || checkPos.x > 7
+            || checkPos.y < 0 || checkPos.y > 7)
+        {
+            return null;
+        }
         return TileOccupant[checkPos.x, checkPos.y];
     }
     public void MoveAgent(IGameAgent agent, Vector3Int oldPos, Vector3Int newPos)
