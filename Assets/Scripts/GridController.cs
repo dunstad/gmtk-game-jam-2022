@@ -149,7 +149,11 @@ public class GridController : MonoBehaviour
     }
     private void ConvertAction(Vector3Int actionTarget)
     {
-
+        BootlickerPawn gameAgent = BoardState.Knock_Knock(actionTarget) as BootlickerPawn;
+        if(gameAgent == null)
+        {
+            
+        }
     }
     private void AttackAction(Vector3Int actionTarget)
     {
@@ -199,6 +203,7 @@ public class GridController : MonoBehaviour
         }
         SelectedAction = ConvertAction;
         List<Vector3Int> possibleMoves = new List<Vector3Int>();
+        List<Vector3Int> blockedMoves = new List<Vector3Int>();
         Vector3Int centerPos = SelectedPawn.Position;
 
         int startXIdx = centerPos.x - 1 < 0 ? 0 : centerPos.x - 1;
@@ -210,9 +215,21 @@ public class GridController : MonoBehaviour
             for(int j = startYIdx; j <= endYIdx; ++j)
             {
                 Vector3Int evalPos = new Vector3Int(i, j, 0);
-                if(BoardState.Knock_Knock(evalPos) == null)
+                IGameAgent agent = BoardState.Knock_Knock(evalPos);
+                if(!IsPosInGridBounds(evalPos) || agent == null)
                 {
-                    possibleMoves.Add(evalPos);
+                    blockedMoves.Add(evalPos);
+                }
+                if(gameState.WhosSideAreYouOn(agent) == Faction.AgentOfMonarchy)
+                {
+                    if(agent is BootlickerPawn)
+                    {
+                        possibleMoves.Add(evalPos);
+                    }
+                    else
+                    {
+                        blockedMoves.Add(evalPos);
+                    }
                 }
             }
         }
