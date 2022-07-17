@@ -58,4 +58,9 @@ public class GameState : MonoBehaviour
         }
         onDiceRolled(playerRolls);
     }
+    public void EndTurn()
+    {
+        TurnCount++;
+        Debug.Log($"Ending the turn, enemies move and proceed to turn {TurnCount}");
+    }
 }
