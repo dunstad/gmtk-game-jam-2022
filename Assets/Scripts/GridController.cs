@@ -242,7 +242,11 @@ public class GridController : MonoBehaviour
             for(int j = startYIdx; j <= endYIdx; ++j)
             {
                 Vector3Int evalPos = new Vector3Int(i, j, 0);
-                if(BoardState.Knock_Knock(evalPos) == null)
+                if(!IsPosInGridBounds(evalPos) || agent == null)
+                {
+                    blockedMoves.Add(evalPos);
+                }
+                if(gameState.WhosSideAreYouOn(agent) == Faction.AgentOfMonarchy)
                 {
                     possibleMoves.Add(evalPos);
                 }
