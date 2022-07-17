@@ -40,6 +40,9 @@ public class DiceBox : MonoBehaviour
             Vector3 dieRandomSpawn = Random.insideUnitCircle * 2;
             Vector3 dieSpawnPoint = new Vector3(transform.position.x + dieRandomSpawn.x, transform.position.y + dieRandomSpawn.y, transform.position.z);
             GameObject die = Instantiate(diePrefab, dieSpawnPoint, Quaternion.identity);
+            Vector3 euler = transform.eulerAngles;
+            euler.z = Random.Range(0.0f, 360.0f);
+            die.transform.eulerAngles = euler;
 
             Sprite dieSprite;
             Color dieColor;
