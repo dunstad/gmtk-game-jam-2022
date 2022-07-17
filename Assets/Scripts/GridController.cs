@@ -147,6 +147,10 @@ public class GridController : MonoBehaviour
     {
         // place a barricade
     }
+    private void ConvertAction(Vector3Int actionTarget)
+    {
+
+    }
     private void AttackAction(Vector3Int actionTarget)
     {
         BoardState.ParentGameState.attackCount--;
@@ -181,6 +185,38 @@ public class GridController : MonoBehaviour
             return;
         }
         BoardState.Spawn(agentType, gridPos);
+    }
+    public void PreviewConvert()
+    {
+        if(SelectedPawn == null)
+        {
+            return;
+        }
+        if(SelectedAction == ConvertAction)
+        {
+            Debug.Log("You are already previewing a Move action for this Pawn");
+            return;
+        }
+        SelectedAction = ConvertAction;
+        List<Vector3Int> possibleMoves = new List<Vector3Int>();
+        Vector3Int centerPos = SelectedPawn.Position;
+
+        int startXIdx = centerPos.x - 1 < 0 ? 0 : centerPos.x - 1;
+        int startYIdx = centerPos.y - 1 < 0 ? 0 : centerPos.y - 1;
+        int endXIdx = centerPos.x + 1 > 7 ? 7 : centerPos.x + 1;
+        int endYIdx = centerPos.y + 1 > 7 ? 7 : centerPos.y + 1;
+        for(int i = startXIdx; i <= endXIdx; ++i)
+        {
+            for(int j = startYIdx; j <= endYIdx; ++j)
+            {
+                Vector3Int evalPos = new Vector3Int(i, j, 0);
+                if(BoardState.Knock_Knock(evalPos) == null)
+                {
+                    possibleMoves.Add(evalPos);
+                }
+            }
+        }
+        overlayMap.EnableTiles(OverlayTileType.Good, possibleMoves);
     }
     public void PreviewBarricade()
     {

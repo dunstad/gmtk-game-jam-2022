@@ -18,5 +18,10 @@ public class InsurgentPawn : BaseGameAgent
     {
         
     }
+    public override void Die()
+    {
+        anim.Play("diePawn");
+        base.Die();
+    }
 
 }

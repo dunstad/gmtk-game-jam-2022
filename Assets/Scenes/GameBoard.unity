@@ -234,7 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Grid: {fileID: 84619349}
   diceBox: {fileID: 2041231362}
-  playerRolls: []
+  moveCount: 0
+  attackCount: 0
 --- !u!1 &103744349
 GameObject:
   m_ObjectHideFlags: 0
