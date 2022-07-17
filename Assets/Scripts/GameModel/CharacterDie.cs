@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InsurgentPawn : BaseGameAgent
+public class CharacterDie : MonoBehaviour
 {
-    private PawnModel Model;
+    public int faceCount { get; set; }
+
+    public List<DieFace> dieFaces { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("start");
-        Model = gameObject.GetComponent<PawnModel>();
-        MoveTo(new Vector3Int(5, 6, 0));
+        
     }
 
     // Update is called once per frame
@@ -18,5 +19,4 @@ public class InsurgentPawn : BaseGameAgent
     {
         
     }
-
 }
