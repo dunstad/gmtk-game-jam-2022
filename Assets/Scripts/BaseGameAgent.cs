@@ -6,8 +6,8 @@ using System;
 public class BaseGameAgent : MonoBehaviour, IGameAgent
 {
 
-    private Animator anim;
-    private Animator weaponAnim;
+    protected Animator anim;
+    protected Animator weaponAnim;
     public bool alive = true;
 
     public event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
@@ -97,9 +97,8 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     }
 
     // start death animation
-    public void Die()
+    public virtual void Die()
     {
-        anim.Play("die");
         Invoke("FinishDying", 0.3f);
         alive = false;
     }
