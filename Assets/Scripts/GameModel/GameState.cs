@@ -12,12 +12,17 @@ public class GameState : MonoBehaviour
     public List<BaseEnemyState> enemies { get; set; }
     
     public event Action<List<DieFace>> onDiceRolled;
+
+    [SerializeField] DiceBox diceBox;
+
     // Start is called before the first frame update
     void Start()
     {
         TurnCount = 0;
         playerCharacters = new List<PawnModel>();
         enemies = new List<BaseEnemyState>();
+
+        diceBox.SubscribeToRollEvent(this);
     }
     public void Initialize() 
     {
