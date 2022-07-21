@@ -41,8 +41,8 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         // gameObject.transform.position = newPos;
         moveSound.Play();
-        StartCoroutine(MoveOverTime(newPos));
         onMove(this, Position, newPos);
+        StartCoroutine(MoveOverTime(newPos));
     }
 
     private float InSine(float t) => (float)-Math.Cos(t * Math.PI / 2);
