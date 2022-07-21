@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BootlickerPawn : MonoBehaviour
+public class BootlickerPawn : BaseGameAgent
 {
     // Start is called before the first frame update
     void Start()

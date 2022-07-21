@@ -108,9 +108,21 @@ public class BoardState : MonoBehaviour
         }
         return TileOccupant[checkPos.x, checkPos.y];
     }
+    private void CompareBoardStateToAgentPositions()
+    {
+        foreach(IGameAgent agent in InsurgentPawns)
+        {
+            Vector3Int agentPos = agent.Position;
+            if(Knock_Knock(agentPos) != agent)
+            {
+                Debug.Log($"Insurgent pawn says it is at ({agentPos.x},{agentPos.y}) while the boardstate disagrees");
+            }
+        }
+    }
     public void MoveAgent(IGameAgent agent, Vector3Int oldPos, Vector3Int newPos)
     {
         Debug.Log("MoveAgent called");
+        CompareBoardStateToAgentPositions();
         IGameAgent oldPosOccupant = TileOccupant[oldPos.x, oldPos.y];
         if(oldPosOccupant != agent)
         {
