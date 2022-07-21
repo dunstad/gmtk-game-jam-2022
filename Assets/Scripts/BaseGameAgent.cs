@@ -41,8 +41,8 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
     {
         // gameObject.transform.position = newPos;
         moveSound.Play();
-        StartCoroutine(MoveOverTime(newPos));
         onMove(this, Position, newPos);
+        StartCoroutine(MoveOverTime(newPos));
     }
 
     private float InSine(float t) => (float)-Math.Cos(t * Math.PI / 2);
@@ -57,7 +57,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         // moving = true;
         float sqrRemainingDistance = (gameObject.transform.position - targetPosition).sqrMagnitude;
         float timeSinceTick = 0f;
-        float tickSeconds = 25f;
+        float tickSeconds = 5f;
 
         while (sqrRemainingDistance > 0.01) {
             timeSinceTick += Time.deltaTime;
@@ -77,7 +77,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         Debug.Log("LaunchProjectile called");
         float sqrRemainingDistance = (newProjectile.transform.position - targetPosition).sqrMagnitude;
         float timeSinceTick = 0f;
-        float tickSeconds = 15f;
+        float tickSeconds = 5f;
 
         while (sqrRemainingDistance > 0.01) {
             timeSinceTick += Time.deltaTime;

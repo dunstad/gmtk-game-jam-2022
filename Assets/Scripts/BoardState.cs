@@ -121,6 +121,7 @@ public class BoardState : MonoBehaviour
     }
     public void MoveAgent(IGameAgent agent, Vector3Int oldPos, Vector3Int newPos)
     {
+        Debug.Log("MoveAgent called");
         CompareBoardStateToAgentPositions();
         IGameAgent oldPosOccupant = TileOccupant[oldPos.x, oldPos.y];
         if(oldPosOccupant != agent)
