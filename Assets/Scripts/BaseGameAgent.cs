@@ -57,7 +57,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         // moving = true;
         float sqrRemainingDistance = (gameObject.transform.position - targetPosition).sqrMagnitude;
         float timeSinceTick = 0f;
-        float tickSeconds = 25f;
+        float tickSeconds = 5f;
 
         while (sqrRemainingDistance > 0.01) {
             timeSinceTick += Time.deltaTime;
@@ -77,7 +77,7 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         Debug.Log("LaunchProjectile called");
         float sqrRemainingDistance = (newProjectile.transform.position - targetPosition).sqrMagnitude;
         float timeSinceTick = 0f;
-        float tickSeconds = 15f;
+        float tickSeconds = 5f;
 
         while (sqrRemainingDistance > 0.01) {
             timeSinceTick += Time.deltaTime;
