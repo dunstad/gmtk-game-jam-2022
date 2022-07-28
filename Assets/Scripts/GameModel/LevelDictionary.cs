@@ -35,6 +35,16 @@ public class LevelDictionary : MonoBehaviour
             { 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0 },
         } },
+        { 2, new int[8,8] {
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 2, 2, 2, 0, 0 },
+            { 0, 0, 0, 1, 0, 1, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0 },
+        } },
     };
     // Start is called before the first frame update
     void Start()
@@ -52,7 +62,7 @@ public enum AgentType
 {
     None = 0,
     InsurgentPawn = 1,
-    EnemyPawn = 2,
+    BootlickerPawn = 2,
     Knight = 3,
     Rook = 4,
     Bishop = 5,
