@@ -44,6 +44,10 @@ public class BaseGameAgent : MonoBehaviour, IGameAgent
         onMove(this, Position, newPos);
         StartCoroutine(MoveOverTime(newPos));
     }
+    public UnityEngine.Object GetGameObject()
+    {
+        return gameObject;
+    }
 
     private float InSine(float t) => (float)-Math.Cos(t * Math.PI / 2);
     private float OutSine(float t) => (float)Math.Sin(t * Math.PI / 2);

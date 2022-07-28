@@ -31,7 +31,7 @@ public class GameState : MonoBehaviour
     public void Initialize() 
     {
 
-        SetupLevel(1);
+        SetupLevel(2);
 
         List<IGameAgent> agentsOfMonarchy = Grid.boardMap.GetComponent<BoardState>().AgentsOfMonarchy;
         foreach (IGameAgent agent in agentsOfMonarchy)

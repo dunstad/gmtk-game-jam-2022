@@ -15,7 +15,8 @@ public interface IGameAgent
     
     // finish removing the thing after it dies, called from animation event
     void FinishDying();
-    
+    // get game object handle
+    UnityEngine.Object GetGameObject();   
     event Action<IGameAgent, Vector3Int, Vector3Int> onMove;
 
 }

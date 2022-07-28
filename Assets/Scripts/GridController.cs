@@ -151,9 +151,12 @@ public class GridController : MonoBehaviour
     {
         BootlickerPawn gameAgent = BoardState.Knock_Knock(actionTarget) as BootlickerPawn;
         if(gameAgent == null)
-        {
-            
-        }
+            return;
+
+        // destroy bootlicker pawn
+        BoardState.RemoveAgent(gameAgent, actionTarget);
+        //instantiate a new player controlled pawn in that position
+        BoardState.Spawn(AgentType.InsurgentPawn, actionTarget);
     }
     private void AttackAction(Vector3Int actionTarget)
     {

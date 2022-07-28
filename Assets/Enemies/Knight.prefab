@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f88cf6ba3116e64cb07025e2396f2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alive: 1
   projectile: {fileID: 8563539456749617192, guid: 7b3b9f38dca0e2041a41afe7a04263f4, type: 3}
   attackSound: {fileID: 5491164824604483547}
   moveSound: {fileID: 5134374050251528192}

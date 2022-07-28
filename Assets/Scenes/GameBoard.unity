@@ -7747,6 +7747,7 @@ MonoBehaviour:
   ParentGridController: {fileID: 84619349}
   ParentGameState: {fileID: 84619350}
   PlayerPawn: {fileID: 1533139247997451042, guid: 270f799fc6f4cb84286cd7a27bfe19b9, type: 3}
+  BootlickerPawn: {fileID: 4586255490572941220, guid: 451133658d68c6549b0f2ebaad91fd22, type: 3}
   Rook: {fileID: 3862063066431793525, guid: 1f72c69f644e7a44e9213ac760465245, type: 3}
   Knight: {fileID: 8522915000191957961, guid: a298e6631cc594541b1467e7d8e30d0b, type: 3}
 --- !u!1 &1912464746

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoardState : MonoBehaviour
 {
+    //public readonly Vector3Int TheVoidPos = new Vector3Int(-999,-999,-999);
     [SerializeField] private GridController ParentGridController;
     [SerializeField] public GameState ParentGameState;
 
@@ -12,6 +13,7 @@ public class BoardState : MonoBehaviour
     public List<IGameAgent> AgentsOfMonarchy { get; private set; } = new List<IGameAgent>();
     public List<IGameAgent> InsurgentPawns { get; private set; } = new List<IGameAgent>();
     public GameObject PlayerPawn;
+    public GameObject BootlickerPawn;
     public GameObject Rook;
     public GameObject Knight;
     private int frameCount = 0;
@@ -57,6 +59,10 @@ public class BoardState : MonoBehaviour
         {
             case AgentType.None:
                 return;
+            case AgentType.BootlickerPawn:
+                spawningEnemy = true;
+                preppedAgent = BootlickerPawn;
+                break;
             case AgentType.InsurgentPawn:
                 spawningEnemy = false;
                 preppedAgent = PlayerPawn;
@@ -138,5 +144,17 @@ public class BoardState : MonoBehaviour
         TileOccupant[oldPos.x, oldPos.y] = null;
         TileOccupant[newPos.x, newPos.y] = agent;
         Debug.Log($"Moved {agent} from {oldPos} to {newPos}");
+    }
+    public void RemoveAgent(IGameAgent agent, Vector3Int currPos)
+    {
+        IGameAgent posOccupant = TileOccupant[currPos.x, currPos.y];
+        if(posOccupant != agent)
+        {
+            Debug.Log($"BoardState cannot remove agent ({agent}) from position ({currPos.x}, {currPos.y}) because the position specified contains a different agent or no agent ({posOccupant})");
+            return;
+        }
+        TileOccupant = null;
+        //posOccupant.Position = TheVoidPos;
+        Destroy(agent.GetGameObject());
     }
 }
